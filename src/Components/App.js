@@ -32,7 +32,7 @@ class App extends Component {
     e.target.value === "No Filter" ? this.setState({ filterRating:"" }) : this.setState({ filterRating: e.target.value})
   }
 
-  selectShow = (show) => {
+  selectShow = (event, show) => {
     Adapter.getShowEpisodes(show.id)
     .then((episodes) => this.setState({
       selectedShow: show,
