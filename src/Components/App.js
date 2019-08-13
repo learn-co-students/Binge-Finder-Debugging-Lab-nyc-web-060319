@@ -26,6 +26,11 @@ class App extends Component {
 
   handleSearch = (e) => {
     this.setState({ searchTerm: e.target.value.toLowerCase() })
+    const term = e.target.value.toLowerCase();
+    Adapter.getShowsSearch(term).then(result =>{
+      this.setState({shows: result})
+    })
+    
   }
 
   handleFilter = (e) => {
@@ -43,11 +48,26 @@ class App extends Component {
     })
   }
 
-  displayShows = () => {
+
+  filterBySomething = () => {
     if (this.state.filterByRating){
       return this.state.shows.filter((s)=> {
         return s.rating.average >= this.state.filterByRating
       })
+    }
+    return null;
+  }
+
+  shouldFilter = () => {
+    if (this.state.filterByRating) {
+      return true;
+    }
+    return false
+  }
+
+  displayShows = () => {
+    if (this.shouldFilter()) {
+      return this.filterBySomething()
     } else {
       return this.state.shows
     }
