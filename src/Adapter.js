@@ -1,11 +1,17 @@
+const TVMAZE_BASE_SHOWS_API_URL = 'http://api.tvmaze.com/shows';
+
 class Adapter {
   static getShows (){
-    return fetch("http://api.tvmaze.com/shows")
+    return fetch(`${TVMAZE_BASE_SHOWS_API_URL}`)
     .then(res => res.json())
   }
 
+  static getShowsSearch(query) {
+
+  }
+
   static getShowEpisodes (showID){
-    return fetch(`https://api.tvmaze.com/shows/${showID}/episodes`
+    return fetch(`${TVMAZE_BASE_SHOWS_API_URL}/${showID}/episodes`
       // {
       //   mode: 'no-cors',
       //   headers: {
@@ -13,7 +19,10 @@ class Adapter {
       //   }
       // }
     )
-    .then(res => res.json())
+    .then(res => {
+      // console.log(res.json())
+      return res.json();
+    })
   }
 }
 
